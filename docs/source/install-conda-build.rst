@@ -1,6 +1,7 @@
 ===================================
 Installing and updating conda build
 ===================================
+silly test
 
 To enable building conda packages:
 
