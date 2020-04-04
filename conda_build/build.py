@@ -318,6 +318,7 @@ def regex_files_rg(files, prefix, tag, rg, regex_rg, replacement_re,
         try:
             if utils.on_win:
                 args = [a.decode('utf-8') for a in args]
+            print(args)
             matches = subprocess.check_output(args, shell=False).rstrip(b'\n').split(b'\n')
             matches = b'[' + b','.join(matches) + b']\n'
             matches = json.loads(matches)
@@ -520,6 +521,7 @@ def have_regex_files(files, prefix, tag, regex_re, replacement_re,
     '''
     if not len(files):
         return match_records
+    print(files)
     import copy
     match_records_rg, match_records_re = copy.deepcopy(match_records), copy.deepcopy(match_records)
     if not isinstance(regex_re, (bytes, bytearray)):
@@ -841,6 +843,7 @@ def get_files_with_prefix(m, files_in, prefix):
     start = time.time()
     # It is nonsensical to replace anything in a symlink.
     files = sorted([f for f in files_in if not os.path.islink(os.path.join(prefix, f))])
+    print(files)
     ignore_files = m.ignore_prefix_files()
     ignore_types = set()
     if not hasattr(ignore_files, "__iter__"):
@@ -870,6 +873,7 @@ def get_files_with_prefix(m, files_in, prefix):
     else:
         pfx_variants = (prefix, prefix_placeholder)
     re_test = b'(' + b'|'.join(v.encode('utf-8').replace(b'\\', b'\\\\') for v in pfx_variants) + b')'
+    print(files_with_prefix)
     pfx_matches = have_regex_files([f[2] for f in files_with_prefix], prefix=prefix,
                                    tag='prefix',
                                    regex_re=re_test,
