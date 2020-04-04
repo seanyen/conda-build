@@ -310,6 +310,7 @@ def regex_files_rg(files, prefix, tag, rg, regex_rg, replacement_re,
     prefix_files = [os.path.join(pu, f.replace('/', os.sep).encode('utf-8')) for f in files]
     args_len = len(b' '.join(args_base))
     file_lists = list(chunks(prefix_files, (32760 if utils.on_win else 131071) - args_len))
+    print(file_lists)
     for file_list in file_lists:
         args = args_base[:] + file_list
         # This will not work now our args are binary strings:
@@ -530,6 +531,7 @@ def have_regex_files(files, prefix, tag, regex_re, replacement_re,
     if regex_rg and not isinstance(regex_rg, (bytes, bytearray)):
         regex_rg = regex_rg.encode('utf-8')
     rg = external.find_executable('rg')
+    print(rg)
     if rg:
         match_records_rg = regex_files_rg(files, prefix, tag,
                                           rg,
