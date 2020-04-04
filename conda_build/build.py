@@ -321,6 +321,7 @@ def regex_files_rg(files, prefix, tag, rg, regex_rg, replacement_re,
             print(args)
             matches = subprocess.check_output(args, shell=False).rstrip(b'\n').split(b'\n')
             matches = b'[' + b','.join(matches) + b']\n'
+            print(matches)
             matches = json.loads(matches)
         except subprocess.CalledProcessError as e:  # noqa
             # Just means rg returned 1 as no matches were found.
